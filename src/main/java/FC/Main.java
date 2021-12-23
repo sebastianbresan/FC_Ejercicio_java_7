@@ -8,9 +8,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Candidato candidato = new Candidato();
-
         ArrayList<Candidato> candidatos = new ArrayList<>();
+
+        CandidatosList candidatosList = new CandidatosList();
 
         Candidato candidato2 = new Candidato("Salto".toLowerCase(Locale.ROOT), false, "sebastian@sebastian.com", "34563456", Presencialidad.REMOTO);
         Candidato candidato3 = new Candidato("Barcelona".toLowerCase(Locale.ROOT), false, "barcelona@sebastian.com", "34563457", Presencialidad.MIXTO);
@@ -28,7 +28,7 @@ public class Main {
         candidatos.add(candidato7);
         candidatos.add(candidato8);
 
-        candidato.setCandidatosList(candidatos);
+        candidatosList.setCandidatosList(candidatos);
 
 
         String ciudad;
@@ -58,7 +58,7 @@ public class Main {
                         email = JOptionPane.showInputDialog("Formato invalido, reintente").toLowerCase(Locale.ROOT);
                     }
                     emailRepetido = false;
-                    for (Candidato candidatoEmail : candidato.getCandidatosList()
+                    for (Candidato candidatoEmail : candidatosList.getCandidatosList()
                     ) {
                         if (email.equals(candidatoEmail.getEmail())) {
                             JOptionPane.showMessageDialog(null, "El email ya se encuentra registrado");
@@ -78,7 +78,7 @@ public class Main {
 
                     Candidato nCandidato = new Candidato(ciudad, tipoTraslado, email, telefono, Presencialidad);
                     candidatos.add(nCandidato);
-                    candidato.setCandidatosList(candidatos);
+                    candidatosList.setCandidatosList(candidatos);
                     JOptionPane.showMessageDialog(null, "Candidato añadido correctamente");
 
                 }
@@ -86,7 +86,7 @@ public class Main {
                 case 1 -> {
                     posicion = 1;
                     sb.setLength(0);
-                    for (Candidato candidato1 : candidato.getCandidatosList()
+                    for (Candidato candidato1 : candidatosList.getCandidatosList()
                     ) {
                         sb.append(posicion).append("- ").append(candidato1).append("\n");
                         posicion++;
@@ -97,7 +97,7 @@ public class Main {
                                         ELIJA CANDIDATO A ELIMINAR
                                                                             
                                         """ + sb));
-                        while (opcion > candidato.getCandidatosList().size()) {
+                        while (opcion > candidatosList.getCandidatosList().size()) {
                             opcion = Integer.parseInt(JOptionPane.showInputDialog(
                                     """ 
                                              RESPUESTA INCORRECTA
@@ -105,8 +105,8 @@ public class Main {
                                              
                                             """ + sb));
                         }
-                        JOptionPane.showMessageDialog(null, "Se eliminara al candidato con email" + candidato.getCandidatosList().get(opcion - 1).getEmail());
-                        candidato.eliminar(opcion - 1);
+                        JOptionPane.showMessageDialog(null, "Se eliminara al candidato con email" + candidatosList.getCandidatosList().get(opcion - 1).getEmail());
+                        candidatosList.eliminar(opcion - 1);
 
 
                     } catch (NumberFormatException e) {
@@ -128,11 +128,11 @@ public class Main {
                             sb.setLength(0);
                             posicion = 1;
                             ciudad = JOptionPane.showInputDialog("Ingrese ciudad").toLowerCase(Locale.ROOT);
-                            if (candidato.filtrar(ciudad).size() < 1) {
+                            if (candidatosList.filtrar(ciudad).size() < 1) {
                                 JOptionPane.showMessageDialog(null, "No se han encotrados candidatos con el filtro '" + ciudad + "'");
                             } else {
-                                for (int i = 0; i < candidato.filtrar(ciudad).size(); i++) {
-                                    sb.append(posicion).append("- ").append(candidato.filtrar(ciudad).get(i)).append("\n");
+                                for (int i = 0; i < candidatosList.filtrar(ciudad).size(); i++) {
+                                    sb.append(posicion).append("- ").append(candidatosList.filtrar(ciudad).get(i)).append("\n");
                                     posicion++;
                                 }
                             }
@@ -148,11 +148,11 @@ public class Main {
                             if (menuPresencialidad == 0) Presencialidad = FC.Presencialidad.PRESENCIAL;
                             if (menuPresencialidad == 1) Presencialidad = FC.Presencialidad.REMOTO;
                             if (menuPresencialidad == 2) Presencialidad = FC.Presencialidad.MIXTO;
-                            if (candidato.filtrar(Presencialidad).size() < 1) {
+                            if (candidatosList.filtrar(Presencialidad).size() < 1) {
                                 JOptionPane.showMessageDialog(null, "No se han encotrados candidatos con el filtro '" + Presencialidad + "'");
                             } else {
-                                for (int i = 0; i < candidato.filtrar(Presencialidad).size(); i++) {
-                                    sb.append(posicion).append("- ").append(candidato.filtrar(Presencialidad).get(i)).append("\n");
+                                for (int i = 0; i < candidatosList.filtrar(Presencialidad).size(); i++) {
+                                    sb.append(posicion).append("- ").append(candidatosList.filtrar(Presencialidad).get(i)).append("\n");
                                     posicion++;
                                 }
                             }
@@ -164,33 +164,33 @@ public class Main {
                             posicion = 1;
                             int respTraslado = JOptionPane.showConfirmDialog(null, "¿Traslado disponible?");
                             tipoTraslado = JOptionPane.OK_OPTION == respTraslado;
-                            if (candidato.filtrar(tipoTraslado).size() < 1) {
+                            if (candidatosList.filtrar(tipoTraslado).size() < 1) {
                                 JOptionPane.showMessageDialog(null, "No se han encotrados candidatos con traslados '" + tipoTraslado + "'");
                             } else {
-                                for (int i = 0; i < candidato.filtrar(tipoTraslado).size(); i++) {
-                                    sb.append(posicion).append("- ").append(candidato.filtrar(tipoTraslado).get(i)).append("\n");
+                                for (int i = 0; i < candidatosList.filtrar(tipoTraslado).size(); i++) {
+                                    sb.append(posicion).append("- ").append(candidatosList.filtrar(tipoTraslado).get(i)).append("\n");
                                     posicion++;
-                                }
+                                } JOptionPane.showMessageDialog(null, sb);
                             }
-                            JOptionPane.showMessageDialog(null, sb);
+
                         }
 
                         case 3 -> {
 
                             email = JOptionPane.showInputDialog("Ingrese email").toLowerCase(Locale.ROOT);
-                            if (candidato.buscarEmail(email).getEmail().isEmpty()) {
+                            if (candidatosList.buscarEmail(email).getEmail().isEmpty()) {
                                 JOptionPane.showMessageDialog(null, "No se encontraron candidatos con el email " + email);
                             } else {
-                                JOptionPane.showMessageDialog(null, candidato.buscarEmail(email));
+                                JOptionPane.showMessageDialog(null, candidatosList.buscarEmail(email));
                             }
                         }
                         case 4 -> {
 
                             telefono = JOptionPane.showInputDialog("Ingrese teléfono").replace(" ", "");
-                            if (candidato.buscarTelefono(telefono).getTelefono().isEmpty()) {
+                            if (candidatosList.buscarTelefono(telefono).getTelefono().isEmpty()) {
                                 JOptionPane.showMessageDialog(null, "No se encontraron candidatos con el telefono " + telefono);
                             } else {
-                                JOptionPane.showMessageDialog(null, candidato.buscarTelefono(telefono));
+                                JOptionPane.showMessageDialog(null, candidatosList.buscarTelefono(telefono));
                             }
                         }
                         case 5 -> {
@@ -207,15 +207,15 @@ public class Main {
                             int respTraslado = JOptionPane.showConfirmDialog(null, "¿Traslado disponible?");
                             tipoTraslado = JOptionPane.OK_OPTION == respTraslado;
 
-                            if (candidato.filtrar(ciudad, Presencialidad, tipoTraslado).size() < 1) {
+                            if (candidatosList.filtrar(ciudad, Presencialidad, tipoTraslado).size() < 1) {
                                 JOptionPane.showMessageDialog(null, "No se han encontrado candidatos con " +
                                         " los filtos\n" +
                                         "Ciudad: '" + ciudad + "'\nPresencialidad: '" + Presencialidad + "'\nTraslado: '" + tipoTraslado + "'"
 
                                 );
                             } else {
-                                for (int i = 0; i < candidato.filtrar(ciudad, Presencialidad, tipoTraslado).size(); i++) {
-                                    sb.append(posicion).append("- ").append(candidato.filtrar(ciudad, Presencialidad, tipoTraslado).get(i)).append("\n");
+                                for (int i = 0; i < candidatosList.filtrar(ciudad, Presencialidad, tipoTraslado).size(); i++) {
+                                    sb.append(posicion).append("- ").append(candidatosList.filtrar(ciudad, Presencialidad, tipoTraslado).get(i)).append("\n");
                                     posicion++;
                                 }
                             }
@@ -228,7 +228,7 @@ public class Main {
                 case 3 -> {
                     posicion = 1;
                     sb.setLength(0);
-                    for (Candidato candidato1 : candidato.getCandidatosList()
+                    for (Candidato candidato1 : candidatosList.getCandidatosList()
                     ) {
                         sb.append(posicion).append("- ").append(candidato1).append("\n");
                         posicion++;
