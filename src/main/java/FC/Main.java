@@ -105,11 +105,10 @@ public class Main {
                                              
                                             """ + sb));
                         }
-                        candidato.eliminar(opcion - 1);
-                        candidatos.clear();
-                        candidatos.addAll(candidato.getCandidatosList());
-
                         JOptionPane.showMessageDialog(null, "Se eliminara al candidato con email" + candidato.getCandidatosList().get(opcion - 1).getEmail());
+                        candidato.eliminar(opcion - 1);
+
+
                     } catch (NumberFormatException e) {
                         JOptionPane.showMessageDialog(null, "Elija una opcion valida");
                     }

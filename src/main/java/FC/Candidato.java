@@ -143,7 +143,6 @@ public class Candidato {
         return telefono;
     }
 
-
     public FC.Presencialidad getPresencialidad() {
         return Presencialidad;
     }
@@ -157,7 +156,6 @@ public class Candidato {
                 ", email='" + email + '\'' +
                 ", telefono='" + telefono + '\'' +
                 ", Presencialidad=" + Presencialidad +
-                ", candidatosList=" + candidatosList +
                 '}';
     }
 }
